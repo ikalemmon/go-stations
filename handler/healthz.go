@@ -22,7 +22,7 @@ func (h *HealthzHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var response = &model.HealthzResponse{}
 	//fmt.Fprint(w, "Hello World from Go.")
 	//w.Header().Set("Content-Type", "application/json")
-	w.Message = "Ok"
+	w.Message = "OK"
     json.NewEncoder(w).Encode(response)
 	if (err != nil) {
 		log.Println(err)
