@@ -52,8 +52,7 @@ func realMain() error {
 
 	// TODO: ここから実装を行う
 	//http.HandleFunc("/healthz", healthzHandler)
-	handler := &HealthzHandler{}
-	mux.HandleFunc("/healthz", handler)
+	mux.HandleFunc("/healthz", HealthzHandler)
 	// handler := &healthzHandler{}
 	// http.Handle("/healthz", handler)
 	http.ListenAndServe(":8080",mux)//muxはハンドラ、すなわちリクエストを受けてレスポンスを返す処理を表す。
