@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"os"
 	"time"
-
 	"github.com/TechBowl-japan/go-stations/db"
+	"handler"
 )
 
 func main() {
@@ -52,7 +52,7 @@ func realMain() error {
 
 	// TODO: ここから実装を行う
 	//http.HandleFunc("/healthz", healthzHandler)
-	handler := &healthzHandler{}
+	handler := &HealthzHandler{}
 	mux.HandleFunc("/healthz", handler)
 	// handler := &healthzHandler{}
 	// http.Handle("/healthz", handler)
