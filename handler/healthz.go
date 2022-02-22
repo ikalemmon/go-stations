@@ -16,5 +16,6 @@ func NewHealthzHandler() *HealthzHandler {
 
 // ServeHTTP implements http.Handler interface.
 func (h *HealthzHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	_ = &model.HealthzResponse{}
+	var _ = &model.HealthzResponse{}
+	fmt.Fprint(w, "Hello World from Go.")
 }
