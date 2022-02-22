@@ -21,7 +21,7 @@ func NewHealthzHandler() *HealthzHandler {
 // HealthHandlerに関する処理を書く。
 func (h *HealthzHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var response = &model.HealthzResponse{}
-	//fmt.Fprint(w, "Hello World from Go.")
+	w.Message = `json:"OK"`
 	//w.Header().Set("Content-Type", "application/json")
 	// w.Message = "OK"
     json.NewEncoder(w).Encode(response)
