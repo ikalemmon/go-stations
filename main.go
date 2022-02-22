@@ -51,6 +51,8 @@ func realMain() error {
 	mux := http.NewServeMux()
 
 	// TODO: ここから実装を行う
+	http.ListenAndServe(":8080",mux)
+
 
 	return nil
 }
