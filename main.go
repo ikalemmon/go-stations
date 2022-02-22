@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 	"github.com/TechBowl-japan/go-stations/db"
-	//"go-stations/handler"
+	"./handler"
 )
 
 func main() {
