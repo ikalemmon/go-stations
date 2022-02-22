@@ -51,7 +51,15 @@ func realMain() error {
 	mux := http.NewServeMux()
 
 	// TODO: ここから実装を行う
-	http.ListenAndServe(":8080",mux)
+	//http.HandleFunc("/healthz", healthzHandler)
+	handler := &healthzHandler{}
+	mux.HandleFunc("/healthz", handler)
+	// handler := &healthzHandler{}
+	// http.Handle("/healthz", handler)
+	http.ListenAndServe(":8080",mux)//muxはハンドラ、すなわちリクエストを受けてレスポンスを返す処理を表す。
+	//echoHandlerなど、いろいろな種類のHandlerがある。
+	
+	//hundlefuncは第二引数が関数、hundleはポインタ。
 
 
 	return nil
