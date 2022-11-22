@@ -5,11 +5,7 @@ import (
 	"os"
 	"time"
 	"github.com/TechBowl-japan/go-stations/db"
-<<<<<<< HEAD
-"github.com/TechBowl-japan/go-stations/handler/router"
-=======
-	
->>>>>>> upstream/main
+	"github.com/TechBowl-japan/go-stations/handler/router"
 )
 
 func main() {
