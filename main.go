@@ -49,7 +49,6 @@ func realMain() error {
 	// NOTE: 新しいエンドポイントの登録はrouter.NewRouterの内部で行うようにする
 	mux := router.NewRouter(todoDB)
 
-<<<<<<< HEAD
 	// TODO: ここから実装を行う
 	//http.HandleFunc("/healthz", healthzHandler)
 	mux.HandleFunc("/healthz", HealthzHandler)
@@ -59,10 +58,7 @@ func realMain() error {
 	//echoHandlerなど、いろいろな種類のHandlerがある。
 	
 	//hundlefuncは第二引数が関数、hundleはポインタ。
-
-=======
 	// TODO: サーバーをlistenする
->>>>>>> upstream/main
 
 	return nil
 }
