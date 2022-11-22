@@ -4,6 +4,8 @@ Railway では Git で自分が取り組んだ内容を記録するときに、�
 テストが通れば Station クリアとなります。
 クリア後、TechTrain の画面に戻り、クリアになっているかを確認してみてください。
 
+[ユーザーマニュアル](https://docs.google.com/presentation/d/1BJSPCWBfy5xtwvBanoRGB77Y0N6JWMAHemEOLP49IPE/edit?usp=sharing)
+
 ## バージョン情報
 
 |言語、フレームワークなど|バージョン|
@@ -37,7 +39,7 @@ Node.js, Yarnのインストールがまだの場合は[html-staions](https://gi
 作成したリポジトリを作業するディレクトリにクローンしましょう。
 
 * Macなら Terminal.app(iTerm2などでも良い)
-* Windowsなら PowerShell(GitBashなどのインストールしたアプリでもう良いです。アプリによってはコマンドが異なることがあります)
+* Windowsなら PowerShell(GitBashなどのインストールしたアプリでも良いです。アプリによってはコマンドが異なることがあります)
 
 で作業するディレクトリを開き、次のコマンドでForkしたGo Railwayのリポジトリをローカルにクローンしてください。
 
@@ -89,8 +91,12 @@ Go Railway に取り組み始めてください。
 
 ## トラブルシューティング
 
-### DBに接続して中身が見れないのですが？
+### go testで404というエラーが返ってきます。
 
+main.goなどでhandlerの登録を確認してみましょう。
+テストの関係上router.NewRouterのメソッド内部で追加するようにしましょう。
+
+### DBに接続して中身が見れないのですが？
 
 次のような結果が返ってきていれば、正常です。
 

@@ -2,11 +2,14 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"os"
 	"time"
 	"github.com/TechBowl-japan/go-stations/db"
-	"github.com/TechBowl-japan/go-stations/handler"
+<<<<<<< HEAD
+"github.com/TechBowl-japan/go-stations/handler/router"
+=======
+	
+>>>>>>> upstream/main
 )
 
 func main() {
@@ -47,9 +50,10 @@ func realMain() error {
 	}
 	defer todoDB.Close()
 
-	// set http handlers
-	mux := http.NewServeMux()
+	// NOTE: 新しいエンドポイントの登録はrouter.NewRouterの内部で行うようにする
+	mux := router.NewRouter(todoDB)
 
+<<<<<<< HEAD
 	// TODO: ここから実装を行う
 	//http.HandleFunc("/healthz", healthzHandler)
 	mux.HandleFunc("/healthz", HealthzHandler)
@@ -60,6 +64,9 @@ func realMain() error {
 	
 	//hundlefuncは第二引数が関数、hundleはポインタ。
 
+=======
+	// TODO: サーバーをlistenする
+>>>>>>> upstream/main
 
 	return nil
 }
