@@ -2,7 +2,6 @@ package handler
 
 import (
 	"net/http"
-	"fmt"
 	"github.com/TechBowl-japan/go-stations/model"
 	"encoding/json"
 	"log"
