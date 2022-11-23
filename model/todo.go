@@ -1,8 +1,9 @@
 package model
 
-import {
+import (
 	"time"
-}
+)
+	
 
 type (
 	// A TODO expresses ...
