@@ -5,7 +5,6 @@ import (
 	"github.com/TechBowl-japan/go-stations/model"
 	"encoding/json"
 	"log"
-	
 )
 
 // A HealthzHandler implements health check endpoint.
@@ -20,10 +19,10 @@ func NewHealthzHandler() *HealthzHandler {
 // HealthHandlerに関する処理を書く。
 func (h *HealthzHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	var response = &model.HealthzResponse{}
-	(*response).Message = `json:"OK"`
+	(*response).Message = "OK"
 	//w.Header().Set("Content-Type", "application/json")
 	// w.Message = "OK"
-    json.NewEncoder(w).Encode(*response)
+	err := json.NewEncoder(w).Encode(*response)
 	if (err != nil) {
 		log.Println(err)
 	}

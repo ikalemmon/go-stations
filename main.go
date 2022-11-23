@@ -6,6 +6,8 @@ import (
 	"time"
 	"github.com/TechBowl-japan/go-stations/db"
 	"github.com/TechBowl-japan/go-stations/handler/router"
+	"net/http"
+	"github.com/TechBowl-japan/go-stations/handler"
 )
 
 func main() {
@@ -51,10 +53,12 @@ func realMain() error {
 
 	// TODO: ここから実装を行う
 	//http.HandleFunc("/healthz", healthzHandler)
-	mux.HandleFunc("/healthz", HealthzHandler)
+	//mux.HandleFunc("/healthz", HealthzHandler)
 	// handler := &healthzHandler{}
 	// http.Handle("/healthz", handler)
-	http.ListenAndServe(":8080",mux)//muxはハンドラ、すなわちリクエストを受けてレスポンスを返す処理を表す。
+	v := handler.NewHealthzHandler()
+	mux.HandleFunc("/healthz", v.ServeHTTP)
+	http.ListenAndServe(port,mux)//muxはハンドラ、すなわちリクエストを受けてレスポンスを返す処理を表す。
 	//echoHandlerなど、いろいろな種類のHandlerがある。
 	
 	//hundlefuncは第二引数が関数、hundleはポインタ。
