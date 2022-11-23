@@ -8,21 +8,22 @@ import (
 type (
 	// A TODO expresses ...
 	TODO struct{
-		ID uint
-		Subject string
-		Description string
-		CreatedAt time.Time
-		UpdatedAt time.Time
+		ID uint `json:"id"`
+		Subject string `json:"subject"`
+		Description string `json:"description"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
 	}
 
 	// A CreateTODORequest expresses ...
 	CreateTODORequest struct{
-		Subject string
-		Description string
-		Todo TODO
+		Subject string `json:"subject"`
+		Description string `json:"description"`
 	}
 	// A CreateTODOResponse expresses ...
-	CreateTODOResponse struct{}
+	CreateTODOResponse struct{
+		Todo TODO `json:"TODO"`
+	}
 
 	// A ReadTODORequest expresses ...
 	ReadTODORequest struct{}
