@@ -2,12 +2,12 @@ package main
 
 import (
 	"log"
+	"net/http"
 	"os"
 	"time"
+
 	"github.com/TechBowl-japan/go-stations/db"
 	"github.com/TechBowl-japan/go-stations/handler/router"
-	"net/http"
-	"github.com/TechBowl-japan/go-stations/handler"
 )
 
 func main() {
@@ -49,20 +49,17 @@ func realMain() error {
 	defer todoDB.Close()
 
 	// NOTE: 新しいエンドポイントの登録はrouter.NewRouterの内部で行うようにする
-	mux := router.NewRouter(todoDB)
 
 	// TODO: ここから実装を行う
-	//http.HandleFunc("/healthz", healthzHandler)
-	//mux.HandleFunc("/healthz", HealthzHandler)
-	// handler := &healthzHandler{}
-	// http.Handle("/healthz", handler)
-	v := handler.NewHealthzHandler()
-	mux.HandleFunc("/healthz", v.ServeHTTP)
-	http.ListenAndServe(port,mux)//muxはハンドラ、すなわちリクエストを受けてレスポンスを返す処理を表す。
-	//echoHandlerなど、いろいろな種類のHandlerがある。
-	
-	//hundlefuncは第二引数が関数、hundleはポインタ。
+	//(muxが帰ってきているが、NewRouterの内部で行っているのはhttp:NewServeMux()で、muxの型は*http.ServeMux.)
+	mux := router.NewRouter(todoDB)
+
 	// TODO: サーバーをlistenする
+	//addressとhandlerを持つserverを返す(第二引数はhandler、nilにすることが多い)
+	http.ListenAndServe(port, mux) //
+
+	//ServeMux→マルチプレクサ。アドレスとhandlerの対応を保持するもの。
+	//Hundler：ServeHTTPメソッドをもつもの。
 
 	return nil
 }
