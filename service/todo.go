@@ -32,16 +32,26 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 	if err != nil {
 		log.Println(err)
 	}
+
 	rows, err := res.LastInsertId()
 	if err != nil {
 		log.Println(err)
 	}
-	err = s.db.QueryRowContext(ctx, confirm, rows).Scan(&todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt)
+
+	stmt, err := s.db.PrepareContext(ctx, confirm)
+	if err != nil {
+		return nil, err
+	}
+	defer stmt.Close()
+
+	//todo.ID = int(rows)
+
+	err = stmt.QueryRowContext(ctx, confirm, rows).Scan(&todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt)
 	if err != nil {
 		log.Println(err)
 	}
 
-	return nil, nil
+	return &todo, err
 }
 
 // ReadTODO reads TODOs on DB.
