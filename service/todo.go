@@ -36,6 +36,7 @@ func (s *TODOService) CreateTODO(ctx context.Context, subject, description strin
 	if err != nil {
 		return &todo, err
 	}
+	todo.ID = rows
 
 	stmt, err := s.db.PrepareContext(ctx, confirm)
 	if err != nil {
