@@ -51,6 +51,5 @@ type (
 	}
 	// A DeleteTODOResponse expresses ...
 	DeleteTODOResponse struct {
-		Todo TODO `json:"todo"`
 	}
 )
