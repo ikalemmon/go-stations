@@ -1,5 +1,7 @@
 package main
 
+//以降のコミットではcommit -nとnをつけてコミットする(さもなくば、テストが実行されてしまう)
+
 import (
 	"log"
 	"net/http"
