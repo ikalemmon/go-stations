@@ -47,6 +47,7 @@ type (
 
 	// A DeleteTODORequest expresses ...
 	DeleteTODORequest struct {
+		IDs []int64 `json:"ids"`
 	}
 	// A DeleteTODOResponse expresses ...
 	DeleteTODOResponse struct{}
