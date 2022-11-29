@@ -50,5 +50,7 @@ type (
 		IDs []int64 `json:"ids"`
 	}
 	// A DeleteTODOResponse expresses ...
-	DeleteTODOResponse struct{}
+	DeleteTODOResponse struct {
+		Todo TODO `json:"todo"`
+	}
 )
