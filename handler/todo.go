@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/TechBowl-japan/go-stations/model"
 	"github.com/TechBowl-japan/go-stations/service"
@@ -66,6 +67,25 @@ func (h *TODOHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		response := model.CreateTODOResponse{TODO: *todo}
+		if err := json.NewEncoder(w).Encode(response); err != nil {
+			log.Println(err)
+			return
+		}
+	}
+	if r.Method == "GET" {
+		request := &model.ReadTODORequest{}
+		query := r.URL.Query()
+		request.PrevID, _ = strconv.ParseInt(query.Get("prev_id"), 10, 64)
+		request.Size, _ = strconv.ParseInt(query.Get("size"), 10, 64)
+		if request.Size == 0 {
+			request.Size = 5
+		}
+		todos, err := h.svc.ReadTODO(r.Context(), request.PrevID, request.Size)
+		if err != nil {
+			log.Println(err)
+			return
+		}
+		response := model.ReadTODOResponse{TODOs: todos}
 		if err := json.NewEncoder(w).Encode(response); err != nil {
 			log.Println(err)
 			return
