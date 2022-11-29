@@ -57,8 +57,51 @@ func (s *TODOService) ReadTODO(ctx context.Context, prevID, size int64) ([]*mode
 		read       = `SELECT id, subject, description, created_at, updated_at FROM todos ORDER BY id DESC LIMIT ?`
 		readWithID = `SELECT id, subject, description, created_at, updated_at FROM todos WHERE id < ? ORDER BY id DESC LIMIT ?`
 	)
+	todos := []*model.TODO{}
+	var err error
 
-	return nil, nil
+	if prevID == 0 {
+		stmt, err := s.db.PrepareContext(ctx, read)
+		if err != nil {
+			return todos, err
+		} else {
+			defer stmt.Close()
+			rows, err := stmt.QueryContext(ctx, size)
+			if err != nil {
+				return todos, err
+			}
+			defer rows.Close()
+			for rows.Next() {
+				var todo model.TODO
+				if err := rows.Scan(&todo.ID, &todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt); err != nil {
+					return todos, err
+				}
+				todos = append(todos, &todo)
+			}
+		}
+
+	} else {
+		stmt, err := s.db.PrepareContext(ctx, readWithID)
+		if err != nil {
+			return todos, err
+		} else {
+			defer stmt.Close()
+			rows, err := stmt.QueryContext(ctx, prevID, size)
+			if err != nil {
+				return todos, err
+			}
+			defer rows.Close()
+			for rows.Next() {
+				var todo model.TODO
+				if err := rows.Scan(&todo.ID, &todo.Subject, &todo.Description, &todo.CreatedAt, &todo.UpdatedAt); err != nil {
+					return todos, err
+				}
+				todos = append(todos, &todo)
+			}
+		}
+	}
+
+	return todos, err
 }
 
 // UpdateTODO updates the TODO on DB.
