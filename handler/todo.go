@@ -44,6 +44,33 @@ func (h *TODOHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
+	if r.Method == "PUT" {
+		request := &model.UpdateTODORequest{}
+		if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+			log.Println(err)
+			return
+		}
+		if request.Subject == "" {
+			w.WriteHeader(http.StatusBadRequest)
+			return
+		}
+		todo, err := h.svc.UpdateTODO(r.Context(), request.ID, request.Subject, request.Description)
+		if err != nil {
+			switch err := err.(type) {
+			case *model.ErrNotFound:
+				w.WriteHeader(http.StatusNotFound)
+			default:
+				log.Println(err)
+			}
+			return
+		}
+		response := model.CreateTODOResponse{TODO: *todo}
+		if err := json.NewEncoder(w).Encode(response); err != nil {
+			log.Println(err)
+			return
+		}
+	}
 }
 
 // Create handles the endpoint that creates the TODO.
