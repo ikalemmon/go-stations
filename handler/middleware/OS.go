@@ -33,7 +33,7 @@ type Log struct {
 	OS        string    `json:"os"`
 }
 
-func acccessLog(h http.Handler) http.Handler {
+func AcccessLog(h http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		h.ServeHTTP(w, r)

@@ -17,5 +17,6 @@ func NewRouter(todoDB *sql.DB) *http.ServeMux {
 	mux.HandleFunc("/todos", handler.NewTODOHandler(service.NewTODOService(todoDB)).ServeHTTP)
 	mux.HandleFunc("/do-panic", handler.NewPanicHandler().ServeHTTP)
 	mux.Handle("/do-panic-middleware", middleware.Recovery(handler.NewPanicHandler()))
+	mux.Handle("/do-panic-middleware-auth", middleware.BasicAuth(middleware.Recovery(handler.NewPanicHandler())))
 	return mux
 }
