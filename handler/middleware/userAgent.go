@@ -7,13 +7,18 @@ import (
 	"github.com/mileusna/useragent"
 )
 
-func userAgent(r *http.Request) *http.Request {
-	type OSname string
-	userAgents := r.UserAgent()
-	ua := useragent.Parse(userAgents)
+func OSname(h http.Handler) http.Handler {
+	fn := func(w http.ResponseWriter, r *http.Request) {
+		userAgents := r.UserAgent()
+		ua := useragent.Parse(userAgents)
 
-	var ctx = r.Context()
-	k := OSname("OS")
-	ctx = context.WithValue(ctx, k, ua.OS)
-	return r.Clone(ctx)
+		var ctx = r.Context()
+		type OSname string
+		k := OSname("OS")
+		ctx = context.WithValue(ctx, k, ua.OS)
+		r = r.Clone(ctx)
+
+		h.ServeHTTP(w, r)
+	}
+	return http.HandlerFunc(fn)
 }
